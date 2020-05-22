@@ -1,23 +1,16 @@
 package org.themoviedb
 
-data class Movie(val icon: Array<Int>, val header: Array<String>, val description: Array<String>) {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
+import java.io.Serializable
+import com.google.gson.annotations.SerializedName
 
-        other as Movie
-
-        if (!icon.contentEquals(other.icon)) return false
-        if (!header.contentEquals(other.header)) return false
-        if (!description.contentEquals(other.description)) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = icon.contentHashCode()
-        result = 31 * result + header.contentHashCode()
-        result = 31 * result + description.contentHashCode()
-        return result
-    }
+class Movie: Serializable{
+    @SerializedName("id") val id: Long = 0
+    @SerializedName("title") val title: String = ""
+    @SerializedName("budget") val budget: Int = 0
+    @SerializedName("tagline") val tagline: String = ""
+    @SerializedName("overview") val overview: String = ""
+    @SerializedName("poster_path") val posterPath: String = ""
+    @SerializedName("vote_average") val rating: Float = 0.0F
+    @SerializedName("release_date") val releaseDate: String = ""
+    @SerializedName("backdrop_path") val backdropPath: String = ""
 }
