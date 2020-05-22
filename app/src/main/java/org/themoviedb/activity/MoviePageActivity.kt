@@ -7,7 +7,6 @@ import org.themoviedb.model.Movie
 import org.themoviedb.util.showToast
 import org.themoviedb.util.isNetworkAvailable
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.activity_movie_page.*
 
 class MoviePageActivity : AppCompatActivity() {
@@ -36,13 +35,9 @@ class MoviePageActivity : AppCompatActivity() {
             movie_tagline.text = movie.tagline
             movie_overview.text = movie.overview
             movie_release_date.text = movie.releaseDate
-            movie_original_language.text = movie.original_language
+            movie_original_language.text = movie.originalLanguage
 
-            Glide
-                .with(this)
-                .load("https://image.tmdb.org/t/p/w342${movie.backdropPath}")
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(movie_backdrop)
+            Glide.with(this).load("https://image.tmdb.org/t/p/w342${movie.backdropPath}").into(movie_backdrop)
         } else {
             showToast("No network")
         }
