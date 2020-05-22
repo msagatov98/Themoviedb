@@ -12,4 +12,5 @@ class Movie: Serializable{
     @SerializedName("vote_average") val rating: Float = 0.0F
     @SerializedName("release_date") val releaseDate: String = ""
     @SerializedName("backdrop_path") val backdropPath: String = ""
+    @SerializedName("original_language") val original_language: String = ""
 }

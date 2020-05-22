@@ -41,6 +41,7 @@ class AdapterMovie(
     }
 
     class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+
         private val movieTitle: TextView = itemView.movie_title
         private val movieRating: TextView = itemView.movie_rating
         private val movieReleaseDate: TextView = itemView.movie_date
@@ -51,14 +52,12 @@ class AdapterMovie(
             movieTitle.text = movie.title
             movieRating.text = movie.rating.toString()
             movieReleaseDate.text = movie.releaseDate
-
             Glide.with(itemView).load("https://image.tmdb.org/t/p/w342${movie.posterPath}").transform(CenterCrop()).into(moviePosterPath)
 
 
             itemView.movie_container.setOnClickListener {
 
                 val intent = Intent(itemView.context, MoviePageActivity::class.java)
-
                 intent.putExtra("movie", movie)
 
                 itemView.context.startActivity(intent)

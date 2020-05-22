@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">Themoviedb</string>
 
+    <string name="budget">Budget:</string>
     <string name="overview">Overview</string>
-    <string name="release_date">Release date:</string>
-    <string name="budget">Budget</string>
-    <string name="themoviedb_logo">themoviedb logo</string>
-    <string name="movie_poster">Movie poster</string>
-    <string name="movie_backdrop">Movie backdrop</string>
+    <string name="language">Language:</string>
     <string name="back_arrow">Back arrow</string>
+    <string name="movie_poster">Movie poster</string>
+    <string name="release_date">Release date:</string>
+    <string name="movie_backdrop">Movie backdrop</string>
+    <string name="themoviedb_logo">themoviedb logo</string>
 </resources>

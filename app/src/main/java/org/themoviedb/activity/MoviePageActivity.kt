@@ -36,6 +36,7 @@ class MoviePageActivity : AppCompatActivity() {
             movie_tagline.text = movie.tagline
             movie_overview.text = movie.overview
             movie_release_date.text = movie.releaseDate
+            movie_original_language.text = movie.original_language
 
             Glide
                 .with(this)
