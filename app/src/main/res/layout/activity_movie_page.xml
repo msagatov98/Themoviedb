@@ -25,6 +25,7 @@
                 android:layout_width="50dp"
                 android:src="@drawable/ic_arrow"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/back_arrow"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
@@ -62,6 +63,7 @@
                     android:id="@+id/movie_backdrop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/movie_backdrop"
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView

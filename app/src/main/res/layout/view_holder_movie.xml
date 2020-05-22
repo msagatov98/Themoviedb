@@ -11,6 +11,7 @@
         android:layout_width="166dp"
         android:id="@+id/movie_image"
         android:layout_height="match_parent"
+        android:contentDescription="@string/movie_poster"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
