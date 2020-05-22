@@ -1,25 +1,31 @@
 package org.themoviedb.activity
 
-import android.os.Bundle
+import android.content.res.Configuration
+import org.themoviedb.R
 import android.util.Log
+import android.os.Bundle
 import android.widget.Toast
+import org.themoviedb.model.Movie
+import org.themoviedb.util.showToast
+import org.themoviedb.adapter.AdapterMovie
+import org.themoviedb.util.isNetworkAvailable
+import org.themoviedb.retrofit.MoviesRepository
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
-import org.themovied.isNetworkAvailable
-import org.themovied.showToast
-import org.themoviedb.adapter.AdapterMovie
-import org.themoviedb.model.Movie
-import org.themoviedb.retrofit.MoviesRepository
-import org.themoviedb.R
-
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 
 class MovieListActivity : AppCompatActivity() {
 
     private lateinit var popularMoviesAdapter: AdapterMovie
-    private lateinit var popularMoviesLayoutMgr: LinearLayoutManager
+    private lateinit var popularMoviesLayoutGrdMgr: GridLayoutManager
+    private lateinit var popularMoviesLayoutLnrMgr: LinearLayoutManager
+
+    private lateinit var dividerVertical : DividerItemDecoration
+    private lateinit var dividerHorizontal : DividerItemDecoration
+
 
     private var popularMoviesPage = 1
 
@@ -27,12 +33,18 @@ class MovieListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         this.window.statusBarColor = getColor(R.color.colorMain)
-        val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
-        movie_list.addItemDecoration(divider)
 
-        swipeContainer.setOnRefreshListener {
+        dividerVertical = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        dividerHorizontal = DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL)
+
+        movie_list.addItemDecoration(dividerVertical)
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            movie_list.addItemDecoration(dividerHorizontal)
+        }
+
+        swipeContainerMovieList.setOnRefreshListener {
             showMovies()
-            swipeContainer.isRefreshing = false
+            swipeContainerMovieList.isRefreshing = false
         }
 
         showMovies()
@@ -41,13 +53,20 @@ class MovieListActivity : AppCompatActivity() {
     private fun showMovies() {
 
         if (isNetworkAvailable()) {
-            popularMoviesLayoutMgr = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-            movie_list.layoutManager = popularMoviesLayoutMgr
-            popularMoviesAdapter =
-                AdapterMovie(mutableListOf())
-            movie_list.adapter = popularMoviesAdapter
+            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                popularMoviesLayoutGrdMgr = GridLayoutManager(this, 2)
+                movie_list.layoutManager = popularMoviesLayoutGrdMgr
+                popularMoviesAdapter = AdapterMovie(mutableListOf())
+                movie_list.adapter = popularMoviesAdapter
+                getPopularMovies()
+            } else {
+                popularMoviesLayoutLnrMgr = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                movie_list.layoutManager = popularMoviesLayoutLnrMgr
+                popularMoviesAdapter = AdapterMovie(mutableListOf())
+                movie_list.adapter = popularMoviesAdapter
+                getPopularMovies()
+            }
 
-            getPopularMovies()
         } else {
             showToast("No network")
         }
@@ -64,13 +83,26 @@ class MovieListActivity : AppCompatActivity() {
     private fun attachPopularMoviesOnScrollListener() {
         movie_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val totalItemCount = popularMoviesLayoutMgr.itemCount
-                val visibleItemCount = popularMoviesLayoutMgr.childCount
-                val firstVisibleItem = popularMoviesLayoutMgr.findFirstVisibleItemPosition()
+
+                val totalItemCount: Int
+                val visibleItemCount: Int
+                val firstVisibleItem: Int
+
+                if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    popularMoviesPage = 1
+                    totalItemCount = popularMoviesLayoutGrdMgr.itemCount
+                    visibleItemCount = popularMoviesLayoutGrdMgr.childCount
+                    firstVisibleItem = popularMoviesLayoutGrdMgr.findFirstVisibleItemPosition()
+                } else {
+                    popularMoviesPage = 1
+                    totalItemCount = popularMoviesLayoutLnrMgr.itemCount
+                    visibleItemCount = popularMoviesLayoutLnrMgr.childCount
+                    firstVisibleItem = popularMoviesLayoutLnrMgr.findFirstVisibleItemPosition()
+                }
 
                 Log.e("TAG", "$totalItemCount\n$visibleItemCount\n$firstVisibleItem")
 
-                if (firstVisibleItem + visibleItemCount >= totalItemCount-1) {
+                if (firstVisibleItem + visibleItemCount >= totalItemCount - 1) {
                     movie_list.removeOnScrollListener(this)
                     popularMoviesPage++
                     getPopularMovies()

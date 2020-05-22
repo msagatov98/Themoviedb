@@ -1,4 +1,4 @@
-package org.themovied
+package org.themoviedb.util
 
 import android.app.Activity
 import android.content.Context

@@ -4,4 +4,5 @@
     <string name="overview">Overview</string>
     <string name="release_date">Release date:</string>
     <string name="budget">Budget</string>
+    <string name="themoviedb_logo">themoviedb logo</string>
 </resources>

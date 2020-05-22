@@ -4,7 +4,6 @@ import java.io.Serializable
 import com.google.gson.annotations.SerializedName
 
 class Movie: Serializable{
-    @SerializedName("id") val id: Long = 0
     @SerializedName("title") val title: String = ""
     @SerializedName("budget") val budget: Int = 0
     @SerializedName("tagline") val tagline: String = ""
