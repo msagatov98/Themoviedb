@@ -1,15 +1,14 @@
-package org.themoviedb
+package org.themoviedb.activity
 
-import android.content.Context
-import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.activity_movie_page.*
 import org.themovied.isNetworkAvailable
 import org.themovied.showToast
+import org.themoviedb.model.Movie
+import org.themoviedb.R
 
 class MoviePageActivity : AppCompatActivity() {
 

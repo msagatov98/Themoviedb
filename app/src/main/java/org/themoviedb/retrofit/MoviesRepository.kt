@@ -1,6 +1,6 @@
-package org.themoviedb
+package org.themoviedb.retrofit
 
-import android.util.Log
+import org.themoviedb.model.Movie
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,8 +21,8 @@ object MoviesRepository {
     }
 
     fun getMovies(page: Int = 1,
-        onSuccess: (movies: List<Movie>) -> Unit,
-        onError: () -> Unit
+                  onSuccess: (movies: List<Movie>) -> Unit,
+                  onError: () -> Unit
     ) {
         api.getPopularMovies(page = page).enqueue(object : Callback<GetMoviesResponse> {
                 override fun onResponse(call: Call<GetMoviesResponse>, response: Response<GetMoviesResponse>) {

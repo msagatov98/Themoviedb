@@ -13,9 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
 
-        <activity android:name=".MoviePageActivity"/>
+        <activity android:name=".activity.MoviePageActivity"/>
 
-        <activity android:name=".MovieListActivity">
+        <activity android:name=".activity.MovieListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,7 +1,5 @@
-package org.themoviedb
+package org.themoviedb.activity
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -12,6 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import org.themovied.isNetworkAvailable
 import org.themovied.showToast
+import org.themoviedb.adapter.AdapterMovie
+import org.themoviedb.model.Movie
+import org.themoviedb.retrofit.MoviesRepository
+import org.themoviedb.R
 
 
 class MovieListActivity : AppCompatActivity() {
@@ -41,7 +43,8 @@ class MovieListActivity : AppCompatActivity() {
         if (isNetworkAvailable()) {
             popularMoviesLayoutMgr = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             movie_list.layoutManager = popularMoviesLayoutMgr
-            popularMoviesAdapter = AdapterMovie(mutableListOf())
+            popularMoviesAdapter =
+                AdapterMovie(mutableListOf())
             movie_list.adapter = popularMoviesAdapter
 
             getPopularMovies()
