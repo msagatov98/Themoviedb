@@ -27,10 +27,6 @@ class AdapterMovie(
         return movies.size / 2
     }
 
-    fun getFirst() : Int{
-        return 0
-    }
-
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.bind(movies[position])
     }

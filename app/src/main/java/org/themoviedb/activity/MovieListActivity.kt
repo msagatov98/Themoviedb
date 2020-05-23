@@ -52,7 +52,6 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun showMovies() {
 
-        if (isNetworkAvailable()) {
             if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 popularMoviesLayoutGrdMgr = GridLayoutManager(this, 2)
                 movie_list.layoutManager = popularMoviesLayoutGrdMgr
@@ -67,12 +66,13 @@ class MovieListActivity : AppCompatActivity() {
                 getPopularMovies()
             }
 
-        } else {
+        if (!isNetworkAvailable()) {
             showToast("No network")
         }
     }
 
     private fun getPopularMovies() {
+        MoviesRepository.init(this)
         MoviesRepository.getMovies(
             popularMoviesPage,
             ::onPopularMoviesFetched,

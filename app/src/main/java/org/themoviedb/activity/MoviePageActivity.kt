@@ -26,7 +26,6 @@ class MoviePageActivity : AppCompatActivity() {
     }
 
     private fun showMovieInfo() {
-        if (isNetworkAvailable()) {
             val movie = intent.getSerializableExtra("movie") as Movie
 
             movie_title.text = movie.title
@@ -38,8 +37,8 @@ class MoviePageActivity : AppCompatActivity() {
             movie_original_language.text = movie.originalLanguage
 
             Glide.with(this).load("https://image.tmdb.org/t/p/w342${movie.backdropPath}").into(movie_backdrop)
-        } else {
-            showToast("No network")
-        }
+
+        if (!isNetworkAvailable()) showToast("No network")
+
     }
 }
